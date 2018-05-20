@@ -1,0 +1,33 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #3B2424;
+	font-family: 'Nunito', sans-serif;
+}
+
+nav {
+	margin-top: 10%;
+	font-size: 35px;
+	width: 100%;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #8B6E6E;
+	text-transform: uppercase;
+	padding: 50px;
+}
+
+a:hover {
+	color: #B19595;
+}
+
+.stopwatch {
+	font-size: 50px;
+	width: 100%;
+	text-align: center;
+	margin-top: 20px;
+	color: #B19595;
+	font-weight: 700;
+}
