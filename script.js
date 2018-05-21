@@ -20,17 +20,10 @@ class Stopwatch extends React.Component {
 	            milliseconds: 0
         	}
         });
-        console.log('workreset');
     }
-
-    print() {
-        this.times.display.innerText = this.format(this.times);
-        console.log('workprint');
-	}
 
 	format(times) {
         return `${this.pad0(this.state.times.minutes)}:${this.pad0(this.state.times.seconds)}:${this.pad0(Math.floor(this.state.times.milliseconds))}`;
-        console.log('workformat');
 	}
 
 	start() {
@@ -39,49 +32,48 @@ class Stopwatch extends React.Component {
 				running: true
 			});
 			this.watch = setInterval(() => this.step(), 10);
-			console.log('workstart');
 		}
 	}
 
 	step() {
 		if (!this.state.running) return;
 		this.calculate();
-		this.print();
-		console.log('workstep');
 	}
 
 	calculate() {
-		if (!this.state.running) return;
-		let minutes = this.state.minutes,
-			seconds = this.state.seconds,
-			milliseconds = this.state.milliseconds
+		
+		let minutes = this.state.times.minutes,
+			seconds = this.state.times.seconds,
+			milliseconds = this.state.times.milliseconds
 
-	    	this.milliseconds += 1;
-	    if (this.milliseconds >= 100) {
-	        this.seconds += 1;
-	        this.milliseconds = 0;
+	    	milliseconds += 1;
+	    if (milliseconds >= 100) {
+	        seconds += 1;
+	        milliseconds = 0;
 	    }
-	    if (this.seconds >= 60) {
-	        this.minutes += 1;
-	        this.seconds = 0;
+	    if (seconds >= 60) {
+	        minutes += 1;
+	        seconds = 0;
 	    }
 	    this.setState({
-	    	minutes: minutes,
-	    	seconds: seconds,
-	    	milliseconds: milliseconds
+	    	times: {
+	    		minutes: minutes,
+	    		seconds: seconds,
+	    		milliseconds: milliseconds
+	    	}
 	    });
 
 	}
 
 	stop() {
-		this.running = false;
+		this.setState({
+			running: false
+		});
 		clearInterval(this.watch);
-		console.log('workstop');
 	}
 
 	clear() {
 		this.reset();
-		this.print();
 	}
 
 	pad0(value) {
@@ -100,7 +92,7 @@ class Stopwatch extends React.Component {
 	      			<a href="#" className="button" id="stop" onClick={this.stop.bind(this)}>Stop</a>
 	      			<a href="#" className="button" id="reset"onClick={this.reset.bind(this)}>Reset</a>
 	    		</nav> 
-	    		<div className="stopwatch">{this.format(this.times)}</div>
+	    		<div className="stopwatch">{this.format(this.state.times)}</div>
 	    		<ul className="results"></ul>
     		</div>
     	)	
